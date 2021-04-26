@@ -1,0 +1,21 @@
+name: ani
+
+on:
+  pull_request_target:
+    
+jobs:
+  parse_body:
+    runs-on: ubuntu-latest
+         
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+        
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+        run: npm ci
+        
+      - run: |
+          node index.js
